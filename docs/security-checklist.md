@@ -52,3 +52,4 @@
 - [x] **CORS Whitelist**: Explicit allowed origins configured in backend settings; wildcard `*` disabled in production.
 - [x] **Secure Headers**: HTTP Strict Transport Security (HSTS), X-Content-Type-Options, X-Frame-Options configured for production.
 - [x] **Audit Trail**: Mutating administrative actions (KYC approval/rejection, user bans, commission adjustments) recorded in `audit_logs` with actor ID, IP address, and timestamp.
+

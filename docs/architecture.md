@@ -220,3 +220,4 @@ sequenceDiagram
   - Elevated cards with crisp micro-borders (`border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow`).
   - Accessible form controls with explicit error labels, aria attributes, and auto-focus indicators.
   - Zero empty-state confusion: Every table and list has a thoughtful empty state with call-to-action buttons.
+

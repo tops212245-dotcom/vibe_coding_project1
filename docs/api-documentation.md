@@ -143,3 +143,4 @@
 | `GET` | `/admin/coupons` | Admin | Manage promotional discount coupons |
 | `POST` | `/admin/coupons` | Admin | Create new coupon code |
 | `GET` | `/admin/audit-logs` | Admin | View system audit activity log |
+

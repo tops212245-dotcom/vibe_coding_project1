@@ -374,3 +374,4 @@
     - `expires_at`: DATETIME NOT NULL
     - `is_revoked`: BOOLEAN DEFAULT FALSE
     - `created_at`: DATETIME DEFAULT CURRENT_TIMESTAMP
+
