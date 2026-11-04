@@ -4,6 +4,14 @@ A modern, responsive, secure, and production-ready multi-vendor Home Services Bo
 
 ---
 
+## ⚡ 1-Click Instant Cloud Deployment
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/tops212245-dotcom/vibe_coding_project1)
+&nbsp;&nbsp;
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/tops212245-dotcom/vibe_coding_project1)
+
+---
+
 ## 🚀 Key Highlights & Evaluation Compliance
 
 | Area | Implementation & Coverage |
