@@ -1,5 +1,5 @@
 services:
-  # FastAPI Backend Service
+  # FastAPI Backend Web Service
   - type: web
     name: homeserve-backend
     runtime: python
@@ -15,34 +15,24 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: DEBUG
-        value: false
+        value: "false"
       - key: SECRET_KEY
         generateValue: true
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
-        value: 60
+        value: "60"
       - key: REFRESH_TOKEN_EXPIRE_DAYS
-        value: 7
+        value: "7"
       - key: DATABASE_URL
-        fromDatabase:
-          name: homeserve-db
-          property: connectionString
+        value: "sqlite:///./homeserve.db"
       - key: CORS_ORIGINS
-        value: "https://homeserve-app.vercel.app,https://homeserve-app.netlify.app"
+        value: "*"
       - key: PAYMENT_SIMULATION_ENABLED
-        value: true
+        value: "true"
       - key: FIRST_SUPERADMIN_EMAIL
-        value: admin@homeserve.com
+        value: "admin@homeserve.com"
       - key: FIRST_SUPERADMIN_PASSWORD
-        value: AdminPassword123!
+        value: "AdminPassword123!"
       - key: FIRST_SUPERADMIN_FIRSTNAME
-        value: Platform
+        value: "Platform"
       - key: FIRST_SUPERADMIN_LASTNAME
-        value: Admin
-
-databases:
-  - name: homeserve-db
-    region: oregon
-    plan: free
-    databaseName: homeserve
-    user: homeserve_admin
-
+        value: "Admin"
