@@ -1,0 +1,481 @@
+{
+  "info": {
+    "name": "HomeServe Technologies SaaS API Collection",
+    "_postman_id": "c1f7a4d5-8910-449e-b9b3-homeserve-v1",
+    "description": "Production-ready Postman collection covering all 10 functional modules of the Home Services Booking Platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01. Authentication & RBAC",
+      "item": [
+        {
+          "name": "Login - Super Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set('adminToken', jsonData.access_token);",
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Token received', function () { pm.expect(jsonData.access_token).to.not.be.empty; });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login - Customer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set('customerToken', jsonData.access_token);",
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{customerEmail}}\",\n  \"password\": \"{{customerPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login - Provider",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set('providerToken', jsonData.access_token);",
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{providerEmail}}\",\n  \"password\": \"{{providerPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Register New Customer",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newuser@example.com\",\n  \"password\": \"Password123!\",\n  \"first_name\": \"Rahul\",\n  \"last_name\": \"Sharma\",\n  \"phone\": \"+919876543299\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/auth/register/customer",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "register", "customer"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User Profile (/me)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{adminToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02. Service Categories & Catalog",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Category by Slug",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/categories/electrical-services",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "categories", "electrical-services"]
+            }
+          }
+        },
+        {
+          "name": "Search & Filter Services",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/services?search=repair&min_price=100&max_price=5000",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "services"],
+              "query": [
+                {"key": "search", "value": "repair"},
+                {"key": "min_price", "value": "100"},
+                {"key": "max_price", "value": "5000"}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03. Service Providers & Areas",
+      "item": [
+        {
+          "name": "List Approved Providers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/providers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "providers"]
+            }
+          }
+        },
+        {
+          "name": "Get Provider Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/providers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "providers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Provider Working Hours",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/providers/1/working-hours",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "providers", "1", "working-hours"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04. Customer Management & Addresses",
+      "item": [
+        {
+          "name": "Get Customer Addresses",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{customerToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/customers/addresses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers", "addresses"]
+            }
+          }
+        },
+        {
+          "name": "Create Customer Address",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{customerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address_line1\": \"A-404, Green Heights\",\n  \"address_line2\": \"Near City Center\",\n  \"city\": \"Mumbai\",\n  \"state\": \"Maharashtra\",\n  \"postal_code\": \"400001\",\n  \"address_type\": \"Home\",\n  \"is_default\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/customers/addresses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "customers", "addresses"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "05. Booking & Appointments",
+      "item": [
+        {
+          "name": "Check Provider Time Slots",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{customerToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/bookings/slots?provider_id=1&date=2026-11-10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "bookings", "slots"],
+              "query": [
+                {"key": "provider_id", "value": "1"},
+                {"key": "date", "value": "2026-11-10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Appointment Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{customerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider_id\": 1,\n  \"service_id\": 1,\n  \"address_id\": 1,\n  \"scheduled_date\": \"2026-11-10\",\n  \"scheduled_time_slot\": \"10:00 - 12:00\",\n  \"customer_notes\": \"Please check living room master switch circuit.\",\n  \"coupon_code\": \"WELCOME50\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "List Customer Bookings",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{customerToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Provider Accept Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{providerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Accepted by QuickFix team. Dispatching technician.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/bookings/{{bookingId}}/accept",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "bookings", "{{bookingId}}", "accept"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "06. Technician Management & Dispatch",
+      "item": [
+        {
+          "name": "Get Technician Assigned Jobs",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{techToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/technicians/jobs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "technicians", "jobs"]
+            }
+          }
+        },
+        {
+          "name": "Update Job Status (Mark Arrival / In Progress / Completed)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{techToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"COMPLETED\",\n  \"notes\": \"Wiring repaired and modular switch tested with multimeter successfully.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/technicians/jobs/{{bookingId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "technicians", "jobs", "{{bookingId}}", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "07. Payment & Invoicing",
+      "item": [
+        {
+          "name": "Simulate Payment / Checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{customerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"booking_id\": 1,\n  \"payment_method\": \"RAZORPAY_TEST\",\n  \"amount\": 149.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/payments/simulate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "payments", "simulate"]
+            }
+          }
+        },
+        {
+          "name": "Get Invoices for Booking",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{customerToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/invoices/booking/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "invoices", "booking", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "08. Notifications",
+      "item": [
+        {
+          "name": "Get User Notifications",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{customerToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/notifications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "notifications"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "09. Reviews & Complaints",
+      "item": [
+        {
+          "name": "Submit Service Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{customerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"booking_id\": 1,\n  \"rating\": 5,\n  \"comment\": \"Excellent and punctuate service! Highly recommended.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/reviews",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "reviews"]
+            }
+          }
+        },
+        {
+          "name": "Raise Support Complaint",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{customerToken}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"booking_id\": 1,\n  \"subject\": \"Technician delay query\",\n  \"description\": \"Technician arrived 15 minutes after scheduled slot, please check.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/complaints",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "complaints"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Analytics & Admin Metrics",
+      "item": [
+        {
+          "name": "Admin Overview KPI Metrics",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{adminToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/analytics/admin/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "analytics", "admin", "overview"]
+            }
+          }
+        },
+        {
+          "name": "Provider Analytics Metrics",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{providerToken}}"}],
+            "url": {
+              "raw": "{{baseUrl}}{{apiPrefix}}/analytics/provider/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "analytics", "provider", "overview"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+

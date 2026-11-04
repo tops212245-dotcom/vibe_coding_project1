@@ -1,0 +1,98 @@
+{
+  "id": "e3061da1-229d-4c31-9f93-homeserve-env",
+  "name": "HomeServe Local Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "apiPrefix",
+      "value": "/api/v1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@homeserve.com",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "adminPassword",
+      "value": "AdminPassword123!",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "providerEmail",
+      "value": "provider@homeserve.com",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "providerPassword",
+      "value": "ProviderPass123!",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "customerEmail",
+      "value": "customer@homeserve.com",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "customerPassword",
+      "value": "CustomerPass123!",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "techEmail",
+      "value": "tech@homeserve.com",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "techPassword",
+      "value": "TechPass123!",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "customerToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "providerToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "techToken",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "bookingId",
+      "value": "1",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}
+

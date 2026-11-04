@@ -1,0 +1,48 @@
+services:
+  # FastAPI Backend Service
+  - type: web
+    name: homeserve-backend
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.18
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+      - key: REFRESH_TOKEN_EXPIRE_DAYS
+        value: 7
+      - key: DATABASE_URL
+        fromDatabase:
+          name: homeserve-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: "https://homeserve-app.vercel.app,https://homeserve-app.netlify.app"
+      - key: PAYMENT_SIMULATION_ENABLED
+        value: true
+      - key: FIRST_SUPERADMIN_EMAIL
+        value: admin@homeserve.com
+      - key: FIRST_SUPERADMIN_PASSWORD
+        value: AdminPassword123!
+      - key: FIRST_SUPERADMIN_FIRSTNAME
+        value: Platform
+      - key: FIRST_SUPERADMIN_LASTNAME
+        value: Admin
+
+databases:
+  - name: homeserve-db
+    region: oregon
+    plan: free
+    databaseName: homeserve
+    user: homeserve_admin
+
